@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trendy_kart/pages/home.dart';
-import 'package:trendy_kart/pages/onBoarding.dart';
+import 'package:trendy_kart/pages/bottomnav.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Home(),
+      home: Bottomnav(),
     );
   }
 }
