@@ -19,7 +19,7 @@ class _OnboardingState extends State<Onboarding> {
             Image.asset("images/onboard.png"),
             const SizedBox(height: 10,),
             const Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20),
               child: Text(
                 "Explore\nthe Best\nProducts!",
                 style: TextStyle(
@@ -33,13 +33,13 @@ class _OnboardingState extends State<Onboarding> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  margin: EdgeInsets.only(right: 20),
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(right: 20),
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                   ),
-                  child: Text(
+                  child: const Text(
                     "Next",
                     style: TextStyle(
                         color: Colors.white,

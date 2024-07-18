@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trendy_kart/pages/home.dart';
 import 'package:trendy_kart/pages/onBoarding.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Onboarding(),
+      home: Home(),
     );
   }
 }
