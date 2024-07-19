@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "613810798308",
+    "project_id": "trendy-kart",
+    "storage_bucket": "trendy-kart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613810798308:android:75f1aef09f1126ba2a76f1",
+        "android_client_info": {
+          "package_name": "com.example.trendy_kart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuqae-i5oMWrdA4t4skN6viZ1B5em-CVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

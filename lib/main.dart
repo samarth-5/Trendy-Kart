@@ -1,10 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:trendy_kart/pages/bottomnav.dart';
-import 'package:trendy_kart/pages/login.dart';
-import 'package:trendy_kart/pages/product.dart';
 import 'package:trendy_kart/pages/signup.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
