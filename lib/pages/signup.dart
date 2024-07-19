@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:trendy_kart/main.dart';
 import 'package:trendy_kart/pages/bottomnav.dart';
 import 'package:trendy_kart/pages/login.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
@@ -14,9 +13,9 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   String? name, email, password;
-  TextEditingController nameController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -26,7 +25,7 @@ class _SignupState extends State<Signup> {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email!, password: password!);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             backgroundColor: Colors.blueAccent,
             content: Text(
               "Registered Successfully!",
@@ -35,16 +34,18 @@ class _SignupState extends State<Signup> {
           ),
         );
         Navigator.push(context, MaterialPageRoute(builder: (context)=>Bottomnav()));
-      } on FirebaseAuthException catch (err) {
+      } 
+      on FirebaseAuthException catch (err) {
         if (err.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.red,
               content: Text(
                 "Password is too weak!",
                 style: TextStyle(fontSize: 15),
               )));
-        } else if (err.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        } 
+        else if (err.code == 'email-already-in-use') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.red,
               content: Text(
                 "Account already exists!",
@@ -61,7 +62,7 @@ class _SignupState extends State<Signup> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 20,
               right: 20,
             ),
@@ -83,7 +84,7 @@ class _SignupState extends State<Signup> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Text(
+                  const Text(
                     "             Please enter the details below to \n                                 continue.",
                     style: TextStyle(
                       color: Colors.black54,
@@ -98,11 +99,11 @@ class _SignupState extends State<Signup> {
                     "Name",
                     style: AppWidget.semiBoldTextFieldStyle(),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     decoration: BoxDecoration(
-                      color: Color(0xFFF4F5F9),
+                      color: const Color(0xFFF4F5F9),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: TextFormField(
@@ -113,7 +114,7 @@ class _SignupState extends State<Signup> {
                         return null;
                       },
                       controller: nameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: "Full Name",
                       ),
@@ -126,11 +127,11 @@ class _SignupState extends State<Signup> {
                     "Email",
                     style: AppWidget.semiBoldTextFieldStyle(),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     decoration: BoxDecoration(
-                      color: Color(0xFFF4F5F9),
+                      color: const Color(0xFFF4F5F9),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: TextFormField(
@@ -141,7 +142,7 @@ class _SignupState extends State<Signup> {
                         return null;
                       },
                       controller: emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: "abc@gmail.com",
                       ),
@@ -154,11 +155,11 @@ class _SignupState extends State<Signup> {
                     "Password",
                     style: AppWidget.semiBoldTextFieldStyle(),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     decoration: BoxDecoration(
-                      color: Color(0xFFF4F5F9),
+                      color: const Color(0xFFF4F5F9),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: TextFormField(
@@ -170,7 +171,7 @@ class _SignupState extends State<Signup> {
                         return null;
                       },
                       controller: passwordController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: "Password",
                       ),
@@ -182,7 +183,7 @@ class _SignupState extends State<Signup> {
                   Center(
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.blueAccent,
                         borderRadius: BorderRadius.circular(10),
@@ -198,7 +199,7 @@ class _SignupState extends State<Signup> {
                           }
                           registration();
                         },
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "REGISTER",
                             style: TextStyle(
@@ -217,7 +218,7 @@ class _SignupState extends State<Signup> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Already have an account?",
                         style: TextStyle(
                           color: Colors.black54,
@@ -230,7 +231,7 @@ class _SignupState extends State<Signup> {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Login()));
                         },
-                        child: Text(
+                        child: const Text(
                           " Login!",
                           style: TextStyle(
                             color: Colors.blueAccent,

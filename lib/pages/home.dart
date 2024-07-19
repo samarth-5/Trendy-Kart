@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.all(20),
                     height: 120,
                     decoration: BoxDecoration(
-                      color: Color(0xFFFD6F3E),
+                      color: const Color(0xFFFD6F3E),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Center(
@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -155,11 +155,11 @@ class _HomeState extends State<Home> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 10),
+                      margin: const EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Column(
                         children: [
                           Image.asset(
