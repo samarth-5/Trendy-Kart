@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 
@@ -220,15 +218,15 @@ class _HomeState extends State<Home> {
                           ),
                           Row(
                             children: [
-                              Text(
-                                "Rs.30",
+                              const Text(
+                                "Rs.3499",
                                 style: TextStyle(
                                   color: Color(0xFFFD6F3E),
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 30,
                               ),
                               Container(

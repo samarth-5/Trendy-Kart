@@ -9,6 +9,14 @@ class AppWidget {
     );
   }
 
+  static TextStyle productTextFieldStyle() {
+    return const TextStyle(
+      color: Colors.black,
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
   static TextStyle lightTextFieldStyle() {
     return const TextStyle(
       color: Colors.black54,
