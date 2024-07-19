@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trendy_kart/pages/bottomnav.dart';
 import 'package:trendy_kart/pages/login.dart';
 import 'package:trendy_kart/pages/product.dart';
+import 'package:trendy_kart/pages/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Login(),
+      home: Signup(),
     );
   }
 }

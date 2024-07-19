@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trendy_kart/pages/signup.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 
 class Login extends StatefulWidget {
@@ -22,6 +23,9 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset("images/login.png"),
+              const SizedBox(
+                height: 10,
+              ),
               Center(
                 child: Text(
                   "Sign In",
@@ -32,10 +36,10 @@ class _LoginState extends State<Login> {
                 height: 10,
               ),
               Text(
-                "      Please enter the details below to \n                          continue.",
+                "             Please enter the details below to \n                                 continue.",
                 style: TextStyle(
                   color: Colors.black54,
-                  fontSize: 18,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -97,8 +101,8 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
+              const SizedBox(
+                height: 25,
               ),
               Center(
                 child: Container(
@@ -120,6 +124,9 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -131,12 +138,18 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text(
-                    " Register!",
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Signup()));
+                    },
+                    child: Text(
+                      " Register!",
+                      style: TextStyle(
+                        color: Colors.blueAccent,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
