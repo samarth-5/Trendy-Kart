@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 import 'package:trendy_kart/pages/bottomnav.dart';
 import 'package:trendy_kart/pages/login.dart';
+import 'package:trendy_kart/services/database.dart';
+import 'package:trendy_kart/services/shared_pref.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 
 class Signup extends StatefulWidget {
@@ -33,6 +36,18 @@ class _SignupState extends State<Signup> {
             ),
           ),
         );
+        String Id = randomAlphaNumeric(10);
+        await SharedPreferenceHelper().saveUserEmail(emailController.text);
+        await SharedPreferenceHelper().saveUserId(Id);
+        await SharedPreferenceHelper().saveUserName(nameController.text);
+        await SharedPreferenceHelper().saveUserImage("");
+        Map<String,dynamic> userInfoMap = {
+          "Name" : nameController.text,
+          "Email" : emailController.text,
+          "Id" : Id,
+          "Image" : "",
+        };
+        await DatabaseMethods().addUserDetails(userInfoMap, Id);
         Navigator.push(context, MaterialPageRoute(builder: (context)=>Bottomnav()));
       } 
       on FirebaseAuthException catch (err) {
