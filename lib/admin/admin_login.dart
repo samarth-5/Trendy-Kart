@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:trendy_kart/admin/home_admin.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 
 class AdminLogin extends StatefulWidget {
@@ -91,7 +93,9 @@ class _AdminLoginState extends State<AdminLogin> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        loginAdmin();
+                      },
                       child: const Center(
                         child: Text(
                           "LOGIN",
@@ -114,5 +118,40 @@ class _AdminLoginState extends State<AdminLogin> {
         ),
       ),
     );
+  }
+
+  loginAdmin() {
+    FirebaseFirestore.instance.collection("Admin").get().then((snapshot){
+      snapshot.docs.forEach((result){
+        if(result.data()['username'] != usernameController.text.trim())
+        {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                "Your username is not correct!",
+                style: TextStyle(fontSize: 15),
+              )));
+        }
+        else if(result.data()['password'] != passwordController.text.trim())
+        {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                "Your password is not correct!",
+                style: TextStyle(fontSize: 15),
+              )));
+        }
+        else
+        {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.blueAccent,
+              content: Text(
+                "Logged in as Admin!",
+                style: TextStyle(fontSize: 15),
+              )));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeAdmin()));
+        }
+      });
+    });
   }
 }
