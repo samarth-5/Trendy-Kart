@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trendy_kart/pages/category_products.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 
 class Home extends StatefulWidget {
@@ -14,6 +15,13 @@ class _HomeState extends State<Home> {
     "images/TV.png",
     "images/laptop.png",
     "images/headphone.png",
+  ];
+
+  List categoryName = [
+    "Watch",
+    "TV",
+    "Laptop",
+    "Earbuds"
   ];
 
   @override
@@ -122,7 +130,7 @@ class _HomeState extends State<Home> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return CategoryTile(image: categories[index]);
+                          return CategoryTile(image: categories[index], name: categoryName[index],);
                         },
                       ),
                     ),
@@ -203,7 +211,7 @@ class _HomeState extends State<Home> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Column(
                         children: [
                           Image.asset(
@@ -255,31 +263,36 @@ class _HomeState extends State<Home> {
 }
 
 class CategoryTile extends StatelessWidget {
-  String image;
-  CategoryTile({super.key, required this.image});
+  String image, name;
+  CategoryTile({super.key, required this.image, required this.name});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(right: 20),
-      height: 90,
-      width: 90,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset(
-            image,
-            height: 50,
-            width: 50,
-            fit: BoxFit.cover,
-          ),
-          const Icon(Icons.arrow_forward),
-        ],
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryProducts(category: name)));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.only(right: 20),
+        height: 90,
+        width: 90,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(
+              image,
+              height: 50,
+              width: 50,
+              fit: BoxFit.cover,
+            ),
+            const Icon(Icons.arrow_forward),
+          ],
+        ),
       ),
     );
   }
