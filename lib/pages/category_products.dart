@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:trendy_kart/pages/product.dart';
 import 'package:trendy_kart/services/database.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 
@@ -76,13 +77,18 @@ class _CategoryProductsState extends State<CategoryProducts> {
                               const SizedBox(
                                 width: 30,
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFFD6F3E),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: const Icon(
-                                  Icons.add,
-                                  color: Colors.white,
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Product(image: ds["Image"], name: ds["Name"], detail: ds["Detail"], price: ds["Price"])));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFFD6F3E),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ],

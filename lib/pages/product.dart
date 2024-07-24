@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 
 class Product extends StatefulWidget {
-  const Product({super.key});
+
+  String image, name, detail, price;
+
+  Product({super.key, required this.image, required this.name, required this.detail, required this.price});
 
   @override
   State<Product> createState() => _ProductState();
@@ -12,10 +15,10 @@ class _ProductState extends State<Product> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFfef5f1),
+      backgroundColor: const Color(0xFFfef5f1),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -26,18 +29,18 @@ class _ProductState extends State<Product> {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      margin: EdgeInsets.only(left: 20),
-                      padding: EdgeInsets.all(5),
+                      margin: const EdgeInsets.only(left: 20),
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child: Icon(Icons.arrow_back_ios_new_outlined),
+                      child: const Icon(Icons.arrow_back_ios_new_outlined),
                     ),
                   ),
                   Center(
-                    child: Image.asset(
-                      "images/earbuds.png",
+                    child: Image.network(
+                      widget.image,
                       height: 400,
                     ),
                   ),
@@ -45,8 +48,8 @@ class _ProductState extends State<Product> {
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
@@ -60,12 +63,11 @@ class _ProductState extends State<Product> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Realme Buds Neo 2",
+                            widget.name,
                             style: AppWidget.productTextFieldStyle(),
                           ),
-                          const Text(
-                            "Rs.3499",
-                            style: TextStyle(
+                          Text("Rs.+${widget.price}",
+                            style: const TextStyle(
                               color: Color(0xFFFD6F3E),
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -73,22 +75,21 @@ class _ProductState extends State<Product> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         "Details",
                         style: AppWidget.semiBoldTextFieldStyle(),
                       ),
-                      Text(
-                          "Immerse yourself in the world of premium sound with the Ultrapods Pro earbuds. Featuring Enhanced Noise Cancellation (ENC) technology and a refined algorithm, these earbuds ensure crystal-clear call quality while delivering immersive HiFi stereo sound with rich bass and a wide soundstage."),
-                      SizedBox(height: 50,),
+                      Text(widget.detail),
+                      const SizedBox(height: 50,),
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
-                          color: Color(0xFFFD6F3E),
+                          color: const Color(0xFFFD6F3E),
                           borderRadius: BorderRadius.circular(10)
                         ),
                         width: MediaQuery.of(context).size.width,
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Buy Now",
                             style: TextStyle(
