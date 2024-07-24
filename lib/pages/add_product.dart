@@ -56,12 +56,12 @@ class _AddProductState extends State<AddProduct> {
     }
   }
 
-  String? value = "";
+  String? value;
   final List<String> categoryItems = [
     'Watch',
     'Laptop',
     'TV',
-    'Headphones',
+    'Headphones'
   ];
 
   @override
@@ -176,38 +176,38 @@ class _AddProductState extends State<AddProduct> {
                 "Product Category",
                 style: AppWidget.lightTextFieldStyle(),
               ),
-              // Container(
-              //   padding: const EdgeInsets.symmetric(horizontal: 10),
-              //   width: MediaQuery.of(context).size.width,
-              //   decoration: BoxDecoration(
-              //     color: const Color(0xFFececf8),
-              //     borderRadius: BorderRadius.circular(15),
-              //   ),
-              //   child: DropdownButtonHideUnderline(
-              //     child: DropdownButton<String>(
-              //       items: categoryItems
-              //           .map((item) => DropdownMenuItem(
-              //                 value: item,
-              //                 child: Text(
-              //                   item,
-              //                   style: AppWidget.normalTextFieldStyle(),
-              //                 ),
-              //               ))
-              //           .toList(),
-              //       onChanged: ((value) => setState(() {
-              //             this.value = value;
-              //           })),
-              //       dropdownColor: Colors.white,
-              //       hint: const Text("Select category"),
-              //       iconSize: 36,
-              //       icon: const Icon(
-              //         Icons.arrow_drop_down,
-              //         color: Colors.black,
-              //       ),
-              //       value: value,
-              //     ),
-              //   ),
-              // ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFececf8),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    items: categoryItems
+                        .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: AppWidget.normalTextFieldStyle(),
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: ((value) => setState(() {
+                          this.value = value;
+                        })),
+                    dropdownColor: Colors.white,
+                    hint: const Text("Select category"),
+                    iconSize: 36,
+                    icon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black,
+                    ),
+                    value: value,
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 20,
               ),
