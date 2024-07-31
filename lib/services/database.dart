@@ -23,4 +23,8 @@ class DatabaseMethods {
         .collection("Orders")
         .add(userInfoMap);
   }
+
+  Future<Stream<QuerySnapshot>> getOrders(String email) async{
+    return await FirebaseFirestore.instance.collection("Orders").where("Email",isEqualTo: email).snapshots();
+  }
 }
