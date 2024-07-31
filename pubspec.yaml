@@ -36,6 +36,8 @@ dependencies:
   firebase_storage_mocks: ^0.7.0
   flutter:
     sdk: flutter
+  flutter_stripe: ^11.0.0
+  http: ^1.2.2
   image_picker: ^1.1.2
   random_string: ^2.3.1
   shared_preferences: ^2.2.3
