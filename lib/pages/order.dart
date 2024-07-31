@@ -66,24 +66,33 @@ class _OrderState extends State<Order> {
                                 width: 120,
                                 fit: BoxFit.cover,
                               ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                children: [
-                                  Text(
-                                    ds["Product"],
-                                    style: AppWidget.semiBoldTextFieldStyle(),
-                                  ),
-                                  Text(
-                                    ds["Price"],
-                                    style: const TextStyle(
-                                      color: Color(0xFFFD6F3E),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                              Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      ds["Product"],
+                                      style: AppWidget.semiBoldTextFieldStyle(),
                                     ),
-                                  ),
-                                ],
+                                    Text("Rs."+
+                                      ds["Price"],
+                                      style: const TextStyle(
+                                        color: Color(0xFFFD6F3E),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text("Status : "+ds["Status"],
+                                      style: const TextStyle(
+                                        color: Color(0xFFFD6F3E),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

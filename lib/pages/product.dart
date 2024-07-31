@@ -174,7 +174,8 @@ class _ProductState extends State<Product> {
           "Name" : name,
           "Email" : email,
           "Image" : image,
-          "ProductImage" : widget.image
+          "ProductImage" : widget.image,
+          "Status" : "On the Way!"
         };
         await DatabaseMethods().orderDetails(orderInfoMap);
 
