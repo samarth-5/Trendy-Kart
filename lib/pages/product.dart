@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:trendy_kart/services/constants.dart';
+import 'package:trendy_kart/services/database.dart';
+import 'package:trendy_kart/services/shared_pref.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,6 +20,30 @@ class Product extends StatefulWidget {
 
 class _ProductState extends State<Product> {
   
+  String? name,email,image;
+
+  getSharedPref() async{
+    name=await SharedPreferenceHelper().getUserName();
+    email=await SharedPreferenceHelper().getUserEmail();
+    image=await SharedPreferenceHelper().getUserImage();
+    setState(() {
+      
+    });
+  }
+
+  onTheLoad() async{
+    await getSharedPref();
+    setState(() {
+      
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    onTheLoad();
+  }
+
   Map<String, dynamic>? paymentIntent;
   @override
   Widget build(BuildContext context) {
@@ -142,6 +168,16 @@ class _ProductState extends State<Product> {
   displayPaymentSheet() async {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) async {
+        Map<String, dynamic> orderInfoMap={
+          "Product" : widget.name,
+          "Price" : widget.price,
+          "Name" : name,
+          "Email" : email,
+          "Image" : image,
+          "ProductImage" : widget.image
+        };
+        await DatabaseMethods().orderDetails(orderInfoMap);
+
         showDialog(
             context: context,
             builder: (_) => const AlertDialog(
@@ -202,5 +238,4 @@ class _ProductState extends State<Product> {
     final calculatedAmount = (int.parse(amount) * 100);
     return calculatedAmount.toString();
   }
-
 }
