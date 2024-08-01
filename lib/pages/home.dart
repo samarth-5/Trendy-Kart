@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:trendy_kart/pages/category_products.dart';
+import 'package:trendy_kart/services/database.dart';
 import 'package:trendy_kart/services/shared_pref.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
 
@@ -19,6 +21,41 @@ class _HomeState extends State<Home> {
   ];
 
   List categoryName = ["Watch", "TV", "Laptop", "Earbuds"];
+
+  var queryResultSet = [];
+  var tempSearchStore = [];
+  bool search = false;
+
+  initiateSearch(value) {
+    if (value.length == 0) {
+      setState(() {
+        queryResultSet = [];
+        tempSearchStore = [];
+      });
+    }
+    setState(() {
+      search = true;
+    });
+
+    var capitalizedValue =
+        value.substring(0, 1).toUpperCase() + value.substring(1);
+
+    if (queryResultSet.isEmpty && value.length == 1) {
+      DatabaseMethods().search(value).then((QuerySnapshot docs) {
+        for (int i = 0; i < docs.docs.length; i++) {
+          queryResultSet.add(docs.docs[i].data());
+        }
+      });
+    } else {
+      tempSearchStore = [];
+      queryResultSet.forEach((element) {
+        if (element["UpdatedName"].startsWith(capitalizedValue))
+          setState(() {
+            tempSearchStore.add(element);
+          });
+      });
+    }
+  }
 
   String? name, image;
 
@@ -87,6 +124,9 @@ class _HomeState extends State<Home> {
                       ),
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
+                        onChanged: (value) {
+                          initiateSearch(value.toUpperCase());
+                        },
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "Search Products...",
@@ -99,187 +139,228 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Categories',
-                          style: AppWidget.semiBoldTextFieldStyle(),
-                        ),
-                        const Text(
-                          'See all',
-                          style: TextStyle(
-                            color: Color(0xFFfd6f3e),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 20),
-                          padding: const EdgeInsets.all(20),
-                          height: 120,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFD6F3E),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'All',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                    search
+                        ? ListView(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            primary: false,
+                            shrinkWrap: true,
+                            children: tempSearchStore.map((element) {
+                              return buildResultCard(element);
+                            }).toList(),
+                          )
+                        : Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Categories',
+                                    style: AppWidget.semiBoldTextFieldStyle(),
+                                  ),
+                                  const Text(
+                                    'See all',
+                                    style: TextStyle(
+                                      color: Color(0xFFfd6f3e),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 120,
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount: categories.length,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return CategoryTile(
-                                  image: categories[index],
-                                  name: categoryName[index],
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'All Products',
-                          style: AppWidget.semiBoldTextFieldStyle(),
-                        ),
-                        const Text(
-                          'See all',
-                          style: TextStyle(
-                            color: Color(0xFFfd6f3e),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Container(
-                      height: 160,
-                      child: ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            padding: const EdgeInsets.all(5),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  "images/earbuds.png",
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  "Realme buds 2",
-                                  style: AppWidget.normalTextFieldStyle(),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Rs.30",
-                                      style: TextStyle(
-                                        color: Color(0xFFFD6F3E),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 20),
+                                    padding: const EdgeInsets.all(20),
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFFD6F3E),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'All',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 30,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      height: 120,
+                                      child: ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        itemCount: categories.length,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return CategoryTile(
+                                            image: categories[index],
+                                            name: categoryName[index],
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'All Products',
+                                    style: AppWidget.semiBoldTextFieldStyle(),
+                                  ),
+                                  const Text(
+                                    'See all',
+                                    style: TextStyle(
+                                      color: Color(0xFFfd6f3e),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Container(
+                                height: 160,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      padding: const EdgeInsets.all(5),
+                                      child: Column(
+                                        children: [
+                                          Image.asset(
+                                            "images/earbuds.png",
+                                            height: 100,
+                                            width: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          Text(
+                                            "Realme buds 2",
+                                            style: AppWidget
+                                                .normalTextFieldStyle(),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "Rs.30",
+                                                style: TextStyle(
+                                                  color: Color(0xFFFD6F3E),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xFFFD6F3E),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12)),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
-                                          color: Color(0xFFFD6F3E),
+                                          color: Colors.white,
                                           borderRadius:
-                                              BorderRadius.circular(12)),
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
+                                              BorderRadius.circular(10)),
+                                      padding: const EdgeInsets.all(5),
+                                      child: Column(
+                                        children: [
+                                          Image.asset(
+                                            "images/earbuds.png",
+                                            height: 100,
+                                            width: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          Text(
+                                            "Realme buds 2",
+                                            style: AppWidget
+                                                .normalTextFieldStyle(),
+                                          ),
+                                          Row(
+                                            children: [
+                                              const Text(
+                                                "Rs.3499",
+                                                style: TextStyle(
+                                                  color: Color(0xFFFD6F3E),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 30,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xFFFD6F3E),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12)),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ],
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            padding: const EdgeInsets.all(5),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  "images/earbuds.png",
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.cover,
                                 ),
-                                Text(
-                                  "Realme buds 2",
-                                  style: AppWidget.normalTextFieldStyle(),
-                                ),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      "Rs.3499",
-                                      style: TextStyle(
-                                        color: Color(0xFFFD6F3E),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 30,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFFD6F3E),
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
             ),
+    );
+  }
+
+  Widget buildResultCard(data) {
+    return Container(
+      height: 100,
+      child: Row(
+        children: [
+          Image.network(
+            data["Image"],
+            height: 50,
+            width: 50,
+            fit: BoxFit.cover,
+          ),
+          Text(
+            data["Name"],
+            style: AppWidget.semiBoldTextFieldStyle(),
+          )
+        ],
+      ),
     );
   }
 }
