@@ -100,6 +100,118 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
+
+                  const SizedBox(height: 30,),                  
+                  Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: Material(
+                      elevation: 3,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10, right: 10, top:5, bottom: 5),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.person_outlined, size: 30,),
+                            const SizedBox(width: 10,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Name", style: AppWidget.superLightTextFieldStyle(),),
+                                Text(name!, style: AppWidget.semiBoldTextFieldStyle(),)
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20,),                  
+                  Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: Material(
+                      elevation: 3,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10, top:5, bottom: 5),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.mail_outlined, size: 30,),
+                            const SizedBox(width: 10,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Email", style: AppWidget.superLightTextFieldStyle(),),
+                                Text(email!, style: AppWidget.semiBoldTextFieldStyle(),)
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20,),                  
+                  Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: Material(
+                      elevation: 3,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10, right: 10, top:5, bottom: 5),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.logout, size: 30,),
+                            const SizedBox(width: 10,),
+                            Text("Sign Out", style: AppWidget.semiBoldTextFieldStyle(),),
+                            const Spacer(),
+                            const Icon(Icons.arrow_forward_ios_outlined),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20,),                  
+                  Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: Material(
+                      elevation: 3,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10, right: 10, top:5, bottom: 5),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.delete_outline, size: 30,),
+                            const SizedBox(width: 10,),
+                            Text("Delete Account", style: AppWidget.semiBoldTextFieldStyle(),),
+                            const Spacer(),
+                            const Icon(Icons.arrow_forward_ios_outlined),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
