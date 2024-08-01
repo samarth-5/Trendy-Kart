@@ -66,7 +66,7 @@ class _OrderState extends State<Order> {
                                 width: 120,
                                 fit: BoxFit.cover,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: Column(

@@ -40,4 +40,12 @@ class AppWidget {
       fontWeight: FontWeight.w500,
     );
   }
+
+  static TextStyle superLightTextFieldStyle() {
+    return const TextStyle(
+      color: Colors.black54,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+    );
+  }
 }
