@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:trendy_kart/pages/category_products.dart';
+import 'package:trendy_kart/pages/product.dart';
 import 'package:trendy_kart/services/database.dart';
 import 'package:trendy_kart/services/shared_pref.dart';
 import 'package:trendy_kart/widgets/support_widget.dart';
@@ -24,6 +26,7 @@ class _HomeState extends State<Home> {
 
   var queryResultSet = [];
   var tempSearchStore = [];
+  TextEditingController searchController=TextEditingController();
   bool search = false;
 
   initiateSearch(value) {
@@ -124,6 +127,7 @@ class _HomeState extends State<Home> {
                       ),
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
+                        controller: searchController,
                         onChanged: (value) {
                           initiateSearch(value.toUpperCase());
                         },
@@ -131,10 +135,22 @@ class _HomeState extends State<Home> {
                           border: InputBorder.none,
                           hintText: "Search Products...",
                           hintStyle: AppWidget.lightTextFieldStyle(),
-                          suffixIcon: const Icon(
-                            Icons.search,
-                            color: Colors.black,
-                          ),
+                          suffixIcon: search
+                              ? GestureDetector(
+                                  onTap: () {
+                                    search = false;
+                                    tempSearchStore = [];
+                                    queryResultSet=[];
+                                    searchController.text="";
+                                    setState(() {
+                                      
+                                    });
+                                  },
+                                  child: const Icon(Icons.close))
+                              : const Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                ),
                         ),
                       ),
                     ),
@@ -257,7 +273,7 @@ class _HomeState extends State<Home> {
                                           ),
                                           Row(
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "Rs.30",
                                                 style: TextStyle(
                                                   color: Color(0xFFFD6F3E),
@@ -265,16 +281,16 @@ class _HomeState extends State<Home> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 30,
                                               ),
                                               Container(
                                                 decoration: BoxDecoration(
-                                                    color: Color(0xFFFD6F3E),
+                                                    color: const Color(0xFFFD6F3E),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             12)),
-                                                child: Icon(
+                                                child: const Icon(
                                                   Icons.add,
                                                   color: Colors.white,
                                                 ),
@@ -318,11 +334,11 @@ class _HomeState extends State<Home> {
                                               ),
                                               Container(
                                                 decoration: BoxDecoration(
-                                                    color: Color(0xFFFD6F3E),
+                                                    color: const Color(0xFFFD6F3E),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             12)),
-                                                child: Icon(
+                                                child: const Icon(
                                                   Icons.add,
                                                   color: Colors.white,
                                                 ),
@@ -345,21 +361,45 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildResultCard(data) {
-    return Container(
-      height: 100,
-      child: Row(
-        children: [
-          Image.network(
-            data["Image"],
-            height: 50,
-            width: 50,
-            fit: BoxFit.cover,
-          ),
-          Text(
-            data["Name"],
-            style: AppWidget.semiBoldTextFieldStyle(),
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Product(
+                    image: data["Image"],
+                    name: data["Name"],
+                    detail: data["Detail"],
+                    price: data["Price"])));
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left: 20),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        height: 100,
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                data["Image"],
+                height: 50,
+                width: 50,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              data["Name"],
+              style: AppWidget.semiBoldTextFieldStyle(),
+            )
+          ],
+        ),
       ),
     );
   }

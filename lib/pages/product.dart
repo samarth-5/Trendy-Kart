@@ -99,7 +99,7 @@ class _ProductState extends State<Product> {
                             widget.name,
                             style: AppWidget.productTextFieldStyle(),
                           ),
-                          Text("Rs.+${widget.price}",
+                          Text("Rs.${widget.price}",
                             style: const TextStyle(
                               color: Color(0xFFFD6F3E),
                               fontSize: 20,
