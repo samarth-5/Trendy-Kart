@@ -5,6 +5,7 @@ import 'package:trendy_kart/admin/allOrders.dart';
 import 'package:trendy_kart/admin/home_admin.dart';
 import 'package:trendy_kart/pages/add_product.dart';
 import 'package:trendy_kart/pages/bottomnav.dart';
+import 'package:trendy_kart/pages/home.dart';
 import 'package:trendy_kart/services/constants.dart';
 
 void main() async {
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomeAdmin(),
+      //home: HomeAdmin(),
+      home: Home(),
     );
   }
 }

@@ -1,11 +1,11 @@
 buildscript {
-    ext.kotlin_version = '1.9.0' // Update to the version specified in the error message
+    ext.kotlin_version = '1.9.0' // Ensure this is compatible with the Android Gradle plugin
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:8.0.2" // Use a compatible Gradle version
+        classpath "com.android.tools.build:gradle:8.0.2" // Ensure compatibility with Gradle version
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:4.3.15"
     }
