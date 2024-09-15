@@ -1,5 +1,9 @@
 # trendy_kart
 
+
+https://github.com/user-attachments/assets/e1616fbb-9ec7-47b6-acf3-9042bb65dcc7
+
+
 A new Flutter project.
 
 ## Getting Started
